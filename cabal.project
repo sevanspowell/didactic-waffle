@@ -1,0 +1,22 @@
+index-state: 2022-06-01T00:00:00Z
+with-compiler: ghc-8.10.7
+
+packages:
+    ./.
+
+allow-newer:
+    -- With monoidal-containers-0.6.0.1, there is an issue deriving Eq1:
+    --   - src/Data/HashMap/Monoidal.hs:74:16: error:
+    --       • Could not deduce (Data.Functor.Classes.Eq1 (MonoidalHashMap k)) ...
+    --
+    -- This is fixed in monoidal-containers-0.6.2.0.
+    --
+    -- We can't use monoidal-containers-0.6.2.0 however because it requires:
+    --   - witherable >=0.4 && <0.5
+    -- and reflex-0.8.2.0 requires:
+    --   - witherable >=0.3 && <0.4
+    --
+    -- However, we can allow reflex to use a newer version of witherable to work
+    -- around this problem. It appears the upper bound on witherable in reflex
+    -- is overzealous anyway.
+    reflex:witherable

@@ -1,0 +1,35 @@
+########################################################################
+# Custom configuration for haskell-language-server.
+#
+# Use this instead of the default Stack cradle if you want faster
+# reloads and cross-package jump-to-definition.
+#
+# It requires nix-direnv and your editor must have direnv integration.
+#
+# To use it, symlink hie-direnv.yaml to hie.yaml.
+# Then prepare your environment:
+# 1. $ direnv allow
+#    (this will build and cache the nix-shell)
+# 2. $ cabal configure --enable-tests --enable-benchmarks -O0
+#    (this will provide the build plan which is the basis of the cradle)
+# 3. $ cabal build all
+#    (this will build the Cabal autogen Paths_ modules)
+#
+# Test your configuration with commands such as:
+# $ hie-bios check src/Leavers.hs
+# $ haskell-language-server src/Leavers.hs
+#
+# See https://github.com/haskell/hie-bios for information about the
+# cradle yaml config format.
+########################################################################
+
+cradle:
+  cabal:
+    - path: "./src"
+      component: "lib:leavers"
+#   - path: "./exe"
+#     component: "exe:hie-bios"
+#   - path: "./tests/BiosTests.hs"
+#     component: "test:hie-bios"
+#   - path: "./tests/ParserTests.hs"
+#     component: "test:parser-tests"
